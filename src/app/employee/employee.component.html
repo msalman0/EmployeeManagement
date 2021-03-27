@@ -1,0 +1,161 @@
+<div class="container">
+
+  <div>
+    <p>
+    <button class="btn btn-primary" (click)="open(addEmployeePopup,'add',null)">Add New Employee</button>
+  </p>
+  </div>
+
+    <div class="row">
+        <div *ngFor= "let employee of employeesList" class="col-md-6 col-xl-3" >
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-6">
+                        <a href=""><img src="{{employee.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                    </div>
+                    <div class="col-6 card-title align-self-center mb-0">
+                        <h5>{{employee.name}}</h5>
+                        <p class="m-0">{{employee.title}}</p>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a href="#">{{employee.email}}</a></li>
+                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{employee.phone}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                        <a href="#" class="btn btn-primary tooltips" data-placement="top"
+                         data-toggle="tooltip" data-original-title="Edit" 
+                         (click)="open(editEmployeePopup,'edit',employee)">
+                         <i class="fa fa-pencil"></i> </a>
+                        <a href="#" class="btn btn-secondary tooltips" data-placement="top"
+                         data-toggle="tooltip" data-original-title="Delete"
+                         (click)="open(deleteEmployeePopup,'delete',employee)">
+                         <i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+  <!-- Modal Add Employee --> 
+  <ng-template #addEmployeePopup let-modal>
+    <form #form="ngForm">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">New Employee</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="name" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text"  class="form-control" name="name" id="name"
+                   [(ngModel)]="newEmployee.name" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="email" name="email" 
+                    placeholder="Joe@domain.com" [(ngModel)]="newEmployee.email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="newEmployee.phone" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Image Url</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="imageUrl" name="imageUrl" [(ngModel)]="newEmployee.imageUrl">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="newEmployee.title">
+          </div>
+        </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="addNewEmployeePopup()">Save</button>
+      </div>
+    </form>
+  </ng-template>
+
+
+  <!-- Modal Edit Employee --> 
+  <ng-template #editEmployeePopup let-modal>
+    <form #form="ngForm">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Employee</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="name" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text"  class="form-control" name="name" id="name" 
+                   [(ngModel)]="currentEmployee.name" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="email" name="email" 
+                    placeholder="Joe@domain.com" [(ngModel)]="currentEmployee.email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="currentEmployee.phone" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Image Url</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="imageUrl" name="imageUrl" [(ngModel)]="currentEmployee.imageUrl">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="currentEmployee.title">
+          </div>
+        </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="editCurrentEmployeePopup()">Save</button>
+      </div>
+    </form>
+  </ng-template>
+
+  <!-- Modal Delete Employee --> 
+  <ng-template #deleteEmployeePopup let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Profile deletion</h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Are you sure you want to delete <span class="text-primary">{{currentEmployee?.name}}</span> profile?</strong></p>
+      <p>All information associated to this user profile will be permanently deleted.
+      <span class="text-danger">This operation can not be undone.</span>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="deleteCurrentEmployeePopup()">Ok</button>
+    </div>
+  </ng-template>
